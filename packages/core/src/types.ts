@@ -18,3 +18,9 @@ export interface GraphData {
 export interface LayoutAlgorithm {
   run(data: GraphData): GraphData;
 }
+
+export interface CommunityConfig {
+  communityKey?: string;
+  weightKey?: string;
+  resolution?: number;
+}

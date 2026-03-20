@@ -9,6 +9,11 @@
   "scripts": {
     "build": "tsc"
   },
+  "dependencies": {
+    "graphology": "^0.25.4",
+    "graphology-communities-louvain": "^2.0.2",
+    "graphology-types": "^0.24.7"
+  },
   "devDependencies": {
     "typescript": "^5.7.3"
   }

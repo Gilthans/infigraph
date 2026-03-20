@@ -44,6 +44,20 @@ test.describe("graph viewer", () => {
     expect(selected).toBe("social-network");
   });
 
+  test("community detection colors nodes by group", async ({ page }) => {
+    await page.goto("/");
+    await page.selectOption("select", "social-network");
+    const canvas = page.locator("canvas");
+    await expect(canvas).toBeVisible({ timeout: 10_000 });
+
+    await page.getByLabel("Detect communities").check();
+    await page.waitForTimeout(1500);
+    await page.screenshot({
+      path: "e2e/screenshots/social-network-communities.png",
+      fullPage: true,
+    });
+  });
+
   for (const sample of RENDERABLE_SAMPLES.slice(1)) {
     test(`renders ${sample}`, async ({ page }) => {
       await page.goto("/");

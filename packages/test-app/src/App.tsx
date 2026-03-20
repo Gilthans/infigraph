@@ -23,6 +23,7 @@ const graphOptions = {
 
 export default function App() {
   const [selected, setSelected] = useLocalStorageState("selectedSample", sampleKeys[0]);
+  const [detectCommunities, setDetectCommunities] = useLocalStorageState("detectCommunities", false);
 
   const data = samples[selected] ?? samples[sampleKeys[0]];
 
@@ -39,8 +40,21 @@ export default function App() {
             ))}
           </select>
         </label>
+        <label style={{ marginLeft: 16 }}>
+          <input
+            type="checkbox"
+            checked={detectCommunities}
+            onChange={(e) => setDetectCommunities(e.target.checked)}
+          />{" "}
+          Detect communities
+        </label>
       </div>
-      <Graph data={data} options={graphOptions} style={{ flex: 1, minHeight: 0 }} />
+      <Graph
+        data={data}
+        options={graphOptions}
+        community={detectCommunities ? { weightKey: "weight" } : undefined}
+        style={{ flex: 1, minHeight: 0 }}
+      />
     </div>
   );
 }

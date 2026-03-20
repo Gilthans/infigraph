@@ -10,16 +10,16 @@
     { "id": "heidi", "label": "Heidi" }
   ],
   "edges": [
-    { "from": "alice", "to": "bob" },
-    { "from": "alice", "to": "carol" },
-    { "from": "bob", "to": "dave" },
-    { "from": "carol", "to": "dave" },
-    { "from": "carol", "to": "eve" },
-    { "from": "dave", "to": "frank" },
-    { "from": "eve", "to": "grace" },
-    { "from": "frank", "to": "grace" },
-    { "from": "grace", "to": "heidi" },
-    { "from": "heidi", "to": "alice" },
-    { "from": "bob", "to": "eve" }
+    { "from": "alice", "to": "bob", "weight": 5 },
+    { "from": "alice", "to": "carol", "weight": 4 },
+    { "from": "bob", "to": "dave", "weight": 3 },
+    { "from": "carol", "to": "dave", "weight": 6 },
+    { "from": "carol", "to": "eve", "weight": 5 },
+    { "from": "dave", "to": "frank", "weight": 1 },
+    { "from": "eve", "to": "grace", "weight": 1 },
+    { "from": "frank", "to": "grace", "weight": 7 },
+    { "from": "grace", "to": "heidi", "weight": 2 },
+    { "from": "heidi", "to": "alice", "weight": 3 },
+    { "from": "bob", "to": "eve", "weight": 4 }
   ]
 }
