@@ -1,6 +1,6 @@
 import Graph from "graphology";
 import louvain from "graphology-communities-louvain";
-import type { GraphData, CommunityConfig } from "./types.js";
+import type { GraphData, GraphNode, GraphEdge, CommunityConfig } from "./types.js";
 
 export function resolveCommunities(
   data: GraphData,
@@ -66,4 +66,62 @@ function resolveWithLouvain(
     }
   }
   return result;
+}
+
+/**
+ * Collapse a graph by its community assignments: each community becomes a node,
+ * edges between communities are aggregated with summed weights.
+ */
+export function buildCommunityGraph(
+  data: GraphData,
+  communities: Map<string | number, number>,
+  weightKey?: string,
+): GraphData {
+  // Collect unique community IDs and the member nodes for labeling
+  const communityMembers = new Map<number, (string | number)[]>();
+  for (const node of data.nodes) {
+    const c = communities.get(node.id);
+    if (c == null) continue;
+    let members = communityMembers.get(c);
+    if (!members) {
+      members = [];
+      communityMembers.set(c, members);
+    }
+    members.push(node.id);
+  }
+
+  const nodes: GraphNode[] = [];
+  for (const [c, members] of communityMembers) {
+    nodes.push({
+      id: c,
+      label: `Community ${c}`,
+      size: members.length,
+      memberIds: members,
+    });
+  }
+
+  // Aggregate edges between communities, summing weights
+  const edgeMap = new Map<string, number>();
+  for (const edge of data.edges) {
+    const cFrom = communities.get(edge.from);
+    const cTo = communities.get(edge.to);
+    if (cFrom == null || cTo == null || cFrom === cTo) continue;
+
+    const lo = Math.min(cFrom, cTo);
+    const hi = Math.max(cFrom, cTo);
+    const key = `${lo}-${hi}`;
+
+    const w = weightKey && typeof edge[weightKey] === "number"
+      ? (edge[weightKey] as number)
+      : 1;
+    edgeMap.set(key, (edgeMap.get(key) ?? 0) + w);
+  }
+
+  const edges: GraphEdge[] = [];
+  for (const [key, weight] of edgeMap) {
+    const [from, to] = key.split("-").map(Number);
+    edges.push({ from, to, weight });
+  }
+
+  return { nodes, edges };
 }

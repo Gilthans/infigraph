@@ -44,18 +44,48 @@ test.describe("graph viewer", () => {
     expect(selected).toBe("social-network");
   });
 
-  test("community detection colors nodes by group", async ({ page }) => {
+  test("community detection renders a collapsed community graph", async ({ page }) => {
     await page.goto("/");
     await page.selectOption("select", "social-network");
     const canvas = page.locator("canvas");
     await expect(canvas).toBeVisible({ timeout: 10_000 });
+    await page.waitForTimeout(500);
 
+    // Before: original nodes
+    const labelsBefore: string[] = await page.evaluate(() => {
+      const net = (window as unknown as Record<string, any>).__network;
+      return net.body.data.nodes.getIds().map((id: any) => net.body.data.nodes.get(id).label);
+    });
+    expect(labelsBefore).toContain("Alice");
+
+    // Enable community detection
     await page.getByLabel("Detect communities").check();
     await page.waitForTimeout(1500);
+
+    // After: community nodes
+    const labelsAfter: string[] = await page.evaluate(() => {
+      const net = (window as unknown as Record<string, any>).__network;
+      return net.body.data.nodes.getIds().map((id: any) => net.body.data.nodes.get(id).label);
+    });
+    expect(labelsAfter.length).toBeGreaterThan(0);
+    expect(labelsAfter.length).toBeLessThan(labelsBefore.length);
+    expect(labelsAfter.every((l) => l.startsWith("Community "))).toBe(true);
+
     await page.screenshot({
       path: "e2e/screenshots/social-network-communities.png",
       fullPage: true,
     });
+
+    // Disable: back to original nodes
+    await page.getByLabel("Detect communities").uncheck();
+    await page.waitForTimeout(1500);
+
+    const labelsRestored: string[] = await page.evaluate(() => {
+      const net = (window as unknown as Record<string, any>).__network;
+      return net.body.data.nodes.getIds().map((id: any) => net.body.data.nodes.get(id).label);
+    });
+    expect(labelsRestored).toContain("Alice");
+    expect(labelsRestored.length).toBe(labelsBefore.length);
   });
 
   for (const sample of RENDERABLE_SAMPLES.slice(1)) {

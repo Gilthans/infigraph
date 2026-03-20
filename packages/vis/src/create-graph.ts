@@ -1,7 +1,7 @@
 import { Network, type Options, type Node, type Edge } from "vis-network";
 import { DataSet } from "vis-data";
 import type { GraphData, CommunityConfig } from "@infigraph/core";
-import { resolveCommunities } from "@infigraph/core";
+import { resolveCommunities, buildCommunityGraph } from "@infigraph/core";
 
 export function createGraph(
   container: HTMLElement,
@@ -11,15 +11,12 @@ export function createGraph(
 ): Network {
   const communities = resolveCommunities(data, community);
 
-  let nodeArray = data.nodes as Node[];
+  let graphData = data;
   if (communities) {
-    nodeArray = data.nodes.map((n) => {
-      const communityId = communities.get(n.id);
-      return communityId != null ? { ...n, group: String(communityId) } as Node : n as Node;
-    });
+    graphData = buildCommunityGraph(data, communities, community?.weightKey);
   }
 
-  const nodes = new DataSet<Node>(nodeArray);
-  const edges = new DataSet<Edge>(data.edges as Edge[]);
+  const nodes = new DataSet<Node>(graphData.nodes as Node[]);
+  const edges = new DataSet<Edge>(graphData.edges as Edge[]);
   return new Network(container, { nodes, edges }, options);
 }

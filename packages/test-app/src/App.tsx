@@ -54,6 +54,9 @@ export default function App() {
         options={graphOptions}
         community={detectCommunities ? { weightKey: "weight" } : undefined}
         style={{ flex: 1, minHeight: 0 }}
+        onReady={(network) => {
+          (window as unknown as Record<string, unknown>).__network = network;
+        }}
       />
     </div>
   );
