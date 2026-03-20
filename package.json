@@ -1,0 +1,11 @@
+{
+  "name": "infigraph",
+  "private": true,
+  "scripts": {
+    "build": "pnpm --filter @infigraph/core build",
+    "dev": "pnpm --filter test-app dev"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}
