@@ -1,3 +1,3 @@
-export type { GraphNode, GraphEdge, GraphData, LayoutAlgorithm, CommunityConfig } from "./types.js";
-export { resolveCommunities, buildCommunityGraph } from "./community.js";
+export { buildCommunityGraph, resolveCommunities } from "./community.js";
 export { CytoscapeCommunityLayout } from "./cytoscape-layout.js";
+export type { CommunityConfig, GraphData, GraphEdge, GraphNode, LayoutAlgorithm } from "./types.js";

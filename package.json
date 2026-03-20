@@ -3,9 +3,12 @@
   "private": true,
   "scripts": {
     "build": "pnpm --filter @infigraph/core build && pnpm --filter @infigraph/vis build && pnpm --filter @infigraph/react build",
-    "dev": "pnpm --filter test-app dev"
+    "dev": "pnpm --filter test-app dev",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write ."
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.8",
     "typescript": "^5.7.3"
   }
 }

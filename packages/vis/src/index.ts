@@ -1,4 +1,10 @@
-export { createGraph } from "./create-graph.js";
-export type { GraphNode, GraphEdge, GraphData, LayoutAlgorithm, CommunityConfig } from "@infigraph/core";
-export type { Network, Options } from "vis-network";
+export type {
+  CommunityConfig,
+  GraphData,
+  GraphEdge,
+  GraphNode,
+  LayoutAlgorithm,
+} from "@infigraph/core";
 export { DataSet } from "vis-data";
+export type { Network, Options } from "vis-network";
+export { createGraph } from "./create-graph.js";

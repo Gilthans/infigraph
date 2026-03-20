@@ -1,10 +1,10 @@
 import { Graph, type GraphData } from "@infigraph/react";
-import { useLocalStorageState } from "./useLocalStorageState";
+import collegeMsg from "./data/college-msg.json";
+import copenhagenCalls from "./data/copenhagen-calls.json";
+import realityMiningCalls from "./data/reality-mining-calls.json";
 import simpleTree from "./data/simple-tree.json";
 import socialNetwork from "./data/social-network.json";
-import copenhagenCalls from "./data/copenhagen-calls.json";
-import collegeMsg from "./data/college-msg.json";
-import realityMiningCalls from "./data/reality-mining-calls.json";
+import { useLocalStorageState } from "./useLocalStorageState";
 
 const samples: Record<string, GraphData> = {
   "simple-tree": simpleTree,
@@ -23,7 +23,10 @@ const graphOptions = {
 
 export default function App() {
   const [selected, setSelected] = useLocalStorageState("selectedSample", sampleKeys[0]);
-  const [detectCommunities, setDetectCommunities] = useLocalStorageState("detectCommunities", false);
+  const [detectCommunities, setDetectCommunities] = useLocalStorageState(
+    "detectCommunities",
+    false,
+  );
 
   const data = samples[selected] ?? samples[sampleKeys[0]];
 

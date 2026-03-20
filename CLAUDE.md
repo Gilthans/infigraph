@@ -16,6 +16,8 @@ Dependency chain: `react → vis → core`
 
 ```bash
 pnpm install              # install all dependencies
+pnpm lint                 # check formatting + lint (biome)
+pnpm lint:fix             # auto-fix lint issues
 pnpm build                # build core → vis → react
 pnpm dev                  # start test-app dev server
 pnpm --filter test-app test   # run Playwright e2e tests (auto-starts dev server)

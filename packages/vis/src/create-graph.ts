@@ -1,7 +1,7 @@
-import { Network, type Options, type Node, type Edge } from "vis-network";
+import type { CommunityConfig, GraphData } from "@infigraph/core";
+import { buildCommunityGraph, CytoscapeCommunityLayout, resolveCommunities } from "@infigraph/core";
 import { DataSet } from "vis-data";
-import type { GraphData, CommunityConfig } from "@infigraph/core";
-import { resolveCommunities, buildCommunityGraph, CytoscapeCommunityLayout } from "@infigraph/core";
+import { type Edge, Network, type Node, type Options } from "vis-network";
 
 export function createGraph(
   container: HTMLElement,

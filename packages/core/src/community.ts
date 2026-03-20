@@ -1,6 +1,6 @@
 import Graph from "graphology";
 import louvain from "graphology-communities-louvain";
-import type { GraphData, GraphNode, GraphEdge, CommunityConfig } from "./types.js";
+import type { CommunityConfig, GraphData, GraphEdge, GraphNode } from "./types.js";
 
 export function resolveCommunities(
   data: GraphData,
@@ -15,10 +15,7 @@ export function resolveCommunities(
   return resolveWithLouvain(data, config.resolution, config.weightKey);
 }
 
-function resolveFromField(
-  data: GraphData,
-  key: string,
-): Map<string | number, number> {
+function resolveFromField(data: GraphData, key: string): Map<string | number, number> {
   const map = new Map<string | number, number>();
   for (const node of data.nodes) {
     const value = node[key];
@@ -111,9 +108,7 @@ export function buildCommunityGraph(
     const hi = Math.max(cFrom, cTo);
     const key = `${lo}-${hi}`;
 
-    const w = weightKey && typeof edge[weightKey] === "number"
-      ? (edge[weightKey] as number)
-      : 1;
+    const w = weightKey && typeof edge[weightKey] === "number" ? (edge[weightKey] as number) : 1;
     edgeMap.set(key, (edgeMap.get(key) ?? 0) + w);
   }
 

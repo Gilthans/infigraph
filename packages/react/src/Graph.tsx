@@ -1,5 +1,11 @@
+import {
+  type CommunityConfig,
+  createGraph,
+  type GraphData,
+  type Network,
+  type Options,
+} from "@infigraph/vis";
 import { useEffect, useRef } from "react";
-import { createGraph, type GraphData, type Options, type Network, type CommunityConfig } from "@infigraph/vis";
 
 export interface GraphProps {
   data: GraphData;
@@ -18,7 +24,7 @@ export function Graph({ data, options = {}, community, style, className, onReady
     const network = createGraph(containerRef.current, data, options, community);
     onReady?.(network);
     return () => network.destroy();
-  }, [data, options, community]);
+  }, [data, options, community, onReady]);
 
   return <div ref={containerRef} style={style} className={className} />;
 }
