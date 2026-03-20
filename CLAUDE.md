@@ -5,14 +5,18 @@ Network visualization web component built on vis.js (vis-network).
 ## Monorepo structure
 
 - **pnpm workspaces** monorepo
-- `packages/core` — `@infigraph/core`: vis-network wrapper library
+- `packages/core` — `@infigraph/core`: pure types, interfaces, future layout algorithms (no vis.js)
+- `packages/vis` — `@infigraph/vis`: vis-network adapter, `createGraph()`
+- `packages/react` — `@infigraph/react`: `<Graph>` React component
 - `packages/test-app` — Vite + React app for iterating on datasets and configurations
+
+Dependency chain: `react → vis → core`
 
 ## Commands
 
 ```bash
 pnpm install              # install all dependencies
-pnpm build                # build @infigraph/core
+pnpm build                # build core → vis → react
 pnpm dev                  # start test-app dev server
 pnpm --filter test-app test   # run Playwright e2e tests (auto-starts dev server)
 ```

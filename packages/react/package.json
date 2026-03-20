@@ -1,5 +1,5 @@
 {
-  "name": "@infigraph/core",
+  "name": "@infigraph/react",
   "version": "0.0.1",
   "type": "module",
   "main": "dist/index.js",
@@ -9,7 +9,15 @@
   "scripts": {
     "build": "tsc"
   },
+  "dependencies": {
+    "@infigraph/vis": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
   "devDependencies": {
+    "@types/react": "^19.0.0",
+    "react": "^19.0.0",
     "typescript": "^5.7.3"
   }
 }

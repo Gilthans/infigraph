@@ -10,7 +10,7 @@
     "test:headed": "playwright test --headed"
   },
   "dependencies": {
-    "@infigraph/core": "workspace:*",
+    "@infigraph/react": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

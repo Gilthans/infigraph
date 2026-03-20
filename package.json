@@ -2,7 +2,7 @@
   "name": "infigraph",
   "private": true,
   "scripts": {
-    "build": "pnpm --filter @infigraph/core build",
+    "build": "pnpm --filter @infigraph/core build && pnpm --filter @infigraph/vis build && pnpm --filter @infigraph/react build",
     "dev": "pnpm --filter test-app dev"
   },
   "devDependencies": {

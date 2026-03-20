@@ -1,5 +1,4 @@
-import { useEffect, useRef } from "react";
-import { createGraph, type GraphData } from "@infigraph/core";
+import { Graph, type GraphData } from "@infigraph/react";
 import { useLocalStorageState } from "./useLocalStorageState";
 import simpleTree from "./data/simple-tree.json";
 import socialNetwork from "./data/social-network.json";
@@ -17,20 +16,15 @@ const samples: Record<string, GraphData> = {
 
 const sampleKeys = Object.keys(samples);
 
+const graphOptions = {
+  edges: { color: "#848484" },
+  physics: { stabilization: { iterations: 150 } },
+};
+
 export default function App() {
-  const containerRef = useRef<HTMLDivElement>(null);
   const [selected, setSelected] = useLocalStorageState("selectedSample", sampleKeys[0]);
 
   const data = samples[selected] ?? samples[sampleKeys[0]];
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-    const network = createGraph(containerRef.current, data, {
-      edges: { color: "#848484" },
-      physics: { stabilization: { iterations: 150 } },
-    });
-    return () => network.destroy();
-  }, [data]);
 
   return (
     <div style={{ width: "100vw", height: "100vh", display: "flex", flexDirection: "column" }}>
@@ -46,7 +40,7 @@ export default function App() {
           </select>
         </label>
       </div>
-      <div ref={containerRef} style={{ flex: 1, minHeight: 0 }} />
+      <Graph data={data} options={graphOptions} style={{ flex: 1, minHeight: 0 }} />
     </div>
   );
 }
