@@ -3,10 +3,16 @@ import { createGraph, type GraphData } from "@infigraph/core";
 import { useLocalStorageState } from "./useLocalStorageState";
 import simpleTree from "./data/simple-tree.json";
 import socialNetwork from "./data/social-network.json";
+import copenhagenCalls from "./data/copenhagen-calls.json";
+import collegeMsg from "./data/college-msg.json";
+import realityMiningCalls from "./data/reality-mining-calls.json";
 
 const samples: Record<string, GraphData> = {
   "simple-tree": simpleTree,
   "social-network": socialNetwork,
+  "copenhagen-calls": copenhagenCalls,
+  "college-msg": collegeMsg,
+  "reality-mining-calls": realityMiningCalls,
 };
 
 const sampleKeys = Object.keys(samples);
