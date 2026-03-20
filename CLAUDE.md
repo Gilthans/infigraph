@@ -1,11 +1,11 @@
 # Infigraph
 
-Network visualization web component built on vis.js (vis-network).
+A library for rendering arbitrarily large networks using a level-of-detail pyramid, inspired by mipmapping in computer graphics. When zoomed out, only a small community graph is rendered (detected via Louvain). When the user zooms into a community node, that community's subgraph is rendered on demand. Panning away or zooming out discards the detail, keeping the number of rendered elements constant regardless of total network size.
 
 ## Monorepo structure
 
 - **pnpm workspaces** monorepo
-- `packages/core` — `@infigraph/core`: pure types, interfaces, future layout algorithms (no vis.js)
+- `packages/core` — `@infigraph/core`: types, community detection (Louvain), layout algorithms (Cytoscape fcose)
 - `packages/vis` — `@infigraph/vis`: vis-network adapter, `createGraph()`
 - `packages/react` — `@infigraph/react`: `<Graph>` React component
 - `packages/test-app` — Vite + React app for iterating on datasets and configurations

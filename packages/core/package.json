@@ -10,6 +10,8 @@
     "build": "tsc"
   },
   "dependencies": {
+    "cytoscape": "^3.30.4",
+    "cytoscape-fcose": "^2.2.0",
     "graphology": "^0.25.4",
     "graphology-communities-louvain": "^2.0.2",
     "graphology-types": "^0.24.7"

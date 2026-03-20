@@ -94,7 +94,7 @@ export function buildCommunityGraph(
   for (const [c, members] of communityMembers) {
     nodes.push({
       id: c,
-      label: `Community ${c}`,
+      label: `Community ${c}\n${members.length} nodes`,
       size: members.length,
       memberIds: members,
     });
