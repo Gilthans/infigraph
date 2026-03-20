@@ -1,0 +1,25 @@
+{
+  "nodes": [
+    { "id": "alice", "label": "Alice" },
+    { "id": "bob", "label": "Bob" },
+    { "id": "carol", "label": "Carol" },
+    { "id": "dave", "label": "Dave" },
+    { "id": "eve", "label": "Eve" },
+    { "id": "frank", "label": "Frank" },
+    { "id": "grace", "label": "Grace" },
+    { "id": "heidi", "label": "Heidi" }
+  ],
+  "edges": [
+    { "from": "alice", "to": "bob" },
+    { "from": "alice", "to": "carol" },
+    { "from": "bob", "to": "dave" },
+    { "from": "carol", "to": "dave" },
+    { "from": "carol", "to": "eve" },
+    { "from": "dave", "to": "frank" },
+    { "from": "eve", "to": "grace" },
+    { "from": "frank", "to": "grace" },
+    { "from": "grace", "to": "heidi" },
+    { "from": "heidi", "to": "alice" },
+    { "from": "bob", "to": "eve" }
+  ]
+}
