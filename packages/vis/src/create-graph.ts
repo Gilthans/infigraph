@@ -2,6 +2,7 @@ import type { CommunityConfig, GraphData } from "@infigraph/core";
 import { buildCommunityGraph, CytoscapeCommunityLayout, resolveCommunities } from "@infigraph/core";
 import { DataSet } from "vis-data";
 import { type Edge, Network, type Node, type Options } from "vis-network";
+import { setupCommunityFade } from "./community-fade.js";
 
 export function createGraph(
   container: HTMLElement,
@@ -21,11 +22,17 @@ export function createGraph(
       ...options,
       physics: { enabled: false },
       nodes: { shape: "circle", ...options.nodes },
-      interaction: { zoomView: true, zoomSpeed: 0.3, ...options.interaction },
+      interaction: { zoomView: true, zoomSpeed: 1, ...options.interaction },
     };
   }
 
   const nodes = new DataSet<Node>(graphData.nodes as Node[]);
   const edges = new DataSet<Edge>(graphData.edges as Edge[]);
-  return new Network(container, { nodes, edges }, mergedOptions);
+  const network = new Network(container, { nodes, edges }, mergedOptions);
+
+  if (communities) {
+    setupCommunityFade(network, nodes, edges, container);
+  }
+
+  return network;
 }

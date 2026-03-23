@@ -8,3 +8,4 @@ export type {
 export { DataSet } from "vis-data";
 export type { Network, Options } from "vis-network";
 export { createGraph } from "./create-graph.js";
+export { patchInteractiveNodes } from "./interactive-nodes.js";
